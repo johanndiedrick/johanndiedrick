@@ -1,0 +1,50 @@
+#video{
+	padding-top: 15px;
+}
+
+h2{
+	margin-top: 0px;
+}
+
+.row{
+	background-color: rgba(255, 0, 0, 0.0);
+
+}
+
+.transparent{
+	background-color: rgba(255, 255, 0, 0.5);
+}
+
+#bio{
+	text-align: right;
+	background-color: rgba(255, 255, 255, 0.9);
+}
+
+#categories{
+	text-align: right;
+	margin-top: 10px;
+	background-color: rgba(255, 255, 255, 0.9);
+}
+
+#workcontent{
+	background-color: rgba(255, 255, 255, 0.9);
+}
+
+a{
+	color: #B278F4 !important;
+}
+
+a:hover{
+	color: #C0FCFD !important;
+	font-weight: bold !important;
+	text-decoration: none !important;
+}
+
+.col {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+[class*="col-"] {
+	background-color: rgba(255, 0, 255, 0.0);
+}

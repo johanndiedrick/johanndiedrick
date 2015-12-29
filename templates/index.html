@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Johann Diedrick</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{{ url_for('static', filename='css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/grid.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/johanndiedrick.css') }}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="{{ url_for('static', filename='js/ie-emulation-modes-warning.js') }}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+	<div class="container">
+		<div id="video">
+			<div id="content" class="row">
+				<div class="col-md-4 col-md-push-8 col">
+					<div id="nav" class="col-md-12 col">
+            					<div id="bio" class="col-md-12 transparent"></div>
+            					<div id="categories" class="col-md-12 transparent"></div>
+					
+					</div>
+				</div>
+				<div class="col-md-8 col-md-pull-4 col">
+					<div id="work" class="col-md-12 col">
+						<div class="col-md-12 transparent" id="workcontent"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div> <!-- /container -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ url_for('static', filename='js/ie10-viewport-bug-workaround.js') }}"></script>
+	<script>
+		$("#work").hide();
+	</script>
+	<script type=text/javascript>
+		  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+	  </script>
+    <!-- Load bio -->
+
+    <script>
+	    	$.getJSON($SCRIPT_ROOT + "api/1/bio", function(data){
+		var bio = data.response;
+		$("#bio")
+		.append("<h2>" + bio.name + "</h2>")	
+		.append("<p>" + bio.emoji + "</p>")
+		.append("<p>" + bio.short_bio + "</p>")
+		.append("<p>" + bio.job + "</p>")
+		.append("<p>" + bio.occupation +"</p>")
+		.append("<p>" + bio.current_update + "</p>")
+		.append("<p>" + "I can be found on <a href='" + bio.github + "'>&#128570;</a>, <a href='" + bio.twitter + "'>&#128038;</a> and <a href='" + bio.instagram +"'>&#128248;</a>.")
+		.append("<p>You can &#128236; me at " +  bio.email + "</p>")
+		.append("<p>My CV is available <a href='" + bio.cv + "'>here</a>&larrtl; &#8610;.</p>")
+		.append("<p>Thanks for visiting. &#128075;</p>")
+    });
+    </script>
+
+    <!-- Load categories -->
+    <script>
+	    	$.getJSON($SCRIPT_ROOT + "api/1/works", function(data){
+			var works = data.response;
+			for (var i = 0; i<works.length; i++){
+				if(works[i].active == "true"){
+
+				var category = works[i].category;
+				//console.log(category);
+				var emoji_category = "";
+				for (var j = 0; j<category.length; j++){
+					var emoji = ""
+					if(category[j] == "installation"){
+						emoji = "&#127959;";
+					}
+
+					if(category[j] == "performance"){
+						emoji = "&#128111;";
+					}
+					
+					if(category[j] == "software"){
+						emoji = "&#128241;";
+					}
+					
+					if(category[j] == "object"){
+						emoji = "&#128266;";
+					}
+					
+					if(category[j] == "workshop"){
+						emoji = "&#128736;";
+					}
+					emoji_category += emoji;
+				}
+
+				$("#categories")
+				.append("<p><a id='" +
+					works[i].title_slug +
+					"' href='#'>" + 
+					works[i].title +
+					" </a> (" + 
+					emoji_category +
+					") </p> ");
+				}
+				}	
+			
+			/*
+			var set = new Set();
+			for (var i = 0; i<works.length; i++){
+			set.add(works[i].category);
+			}
+			set.forEach(function(item){
+			$("#categories")
+			.append("<p>" + item[0].toUpperCase() + item.slice(1) + "</p>");
+				for(var i = 0; i<works.length; i++){
+					if (works[i].category == item){
+						$("#categories")
+						.append("<p><a href='#' id=" + works[i].title_slug +  ">" + works[i].title + "</a></p>");
+						
+					}
+				}
+			});	
+			*/
+    		});
+    </script>
+
+    <!-- Handle loading works -->
+    <script>
+	    $("#categories").on("click", "a", function(e){
+		    $("#work").hide('slide', {direction: 'right'}, 250);
+	    		$.getJSON($SCRIPT_ROOT + "api/1/works?title=" + e.target.id, function(data){
+			var work = data.response;
+			$("#workcontent").empty();
+
+			//title, image, website, dates, collaborators, involvement
+			$("#workcontent")
+			.append("<p><img width='100%' src='" + work[0].primary_image + "'></p>")
+			.append("<p><b>" + work[0].title + "</b></p>")
+			.append("<p>" + work[0].website + "</p>");
+
+			//start/end year
+			if(work[0].end_year != ""){
+				$("#workcontent").append("<p>" + work[0].start_year + " - " + work[0].end_year + "</p>");
+			} else{
+				$("#workcontent").append("<p>" + work[0].start_year +  "</p>");
+			}	
+
+
+			//collaborators
+			var collaborators = "";
+			for (var i = 0; i<work[0].collaborators.length; i++){
+				if (i == work[0].collaborators.length - 1){
+					collaborators += work[0].collaborators[i];
+				}else{
+					collaborators += work[0].collaborators[i] + " and ";
+				}	
+			}
+			$("#workcontent").append("<p>" + collaborators + "</p>");
+			$("#workcontent").append("</p>")
+
+			//involvement
+			.append("<p>Role: " + work[0].involvement + "</p>");
+			
+			//description and video
+			$("#workcontent")
+			.append("<p>" + work[0].primary_video + "</p>")
+			.append("<p>" + work[0].description + "</p>");
+
+			//supplementary videos and pictures
+			for (var i=0; i<work[0].supplementary_videos.length; i++){
+				$("#workcontent")
+				.append(work[0].supplementary_videos[i]);
+			}
+
+			for (var i=0; i<work[0].supplementary_images.length; i++){
+				$("#workcontent")
+				.append("<img width='100%' src='" + work[0].supplementary_images[i] + "'>");
+			}
+
+			//exhibitions
+			$("#workcontent")
+			.append("<p><u>Exhibitions</u></p>");
+			var all_exhibitions = work[0].exhibitions;
+
+			for (var year in all_exhibitions){
+				$("#workcontent").append("<p>" + year + "</p>");
+
+				var exhibitions = all_exhibitions[year];
+				for (var i=0; i<exhibitions.length; i++){
+					$("#workcontent").append("<p>" + exhibitions[i] + "</p>");
+				}
+			}
+
+			//press
+			console.log(work[0].press.length);
+			if (work[0].press.length > 0 ){
+			$("#workcontent").append("<p><u>Press</u></p>");
+				for( var i = 0; i<work[0].press.length; i++){
+					$("#workcontent").append("<p>" + work[0].press[i] + "</p>");
+				}
+			}
+			$("#work").show('slide', {direction: 'right'}, 250);
+		});
+	    });
+
+    </script>
+
+    <!-- load videos -->
+    <script>
+	    $.getJSON($SCRIPT_ROOT + "api/1/videos/random", function(data){
+		    	video_url = data.response;
+			$("#video").prepend("<video style='position: fixed; right: 0; bottom: 0;min-width: 100%; min-height: 100%;width: auto; height: auto; z-index: -100;' autoplay loop mute='true' src='" + video_url + "'>");
+		});
+    </script>
+
+  </body>
+</html>
