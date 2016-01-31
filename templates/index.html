@@ -180,7 +180,7 @@
 					collaborators += work[0].collaborators[i] + " and ";
 				}	
 			}
-			$("#workcontent").append("<p>" + collaborators + "</p>");
+			$("#workcontent").append("<p>with " + collaborators + "</p>");
 			$("#workcontent").append("</p>")
 
 			//involvement
@@ -199,7 +199,9 @@
 
 			for (var i=0; i<work[0].supplementary_images.length; i++){
 				$("#workcontent")
-				.append("<img width='100%' src='" + work[0].supplementary_images[i] + "'>");
+				.append("<img width='100%' src='" + work[0].supplementary_images[i] + "'>")
+				.append("<br><br>");
+				
 			}
 
 			//exhibitions
