@@ -59,7 +59,7 @@ def get_random_video():
 	youtube_vid_url = "http://www.youtube.com/watch?v=" + yt_vid
 	ydl = youtube_dl.YoutubeDL({'outtmpl': '%(id)s%(ext)s'}) 
 	yt_extract = ydl.extract_info(youtube_vid_url, download=False)
-	yt_url = yt_extract['formats'][5]['url']
+	yt_url = yt_extract['formats'][3]['url']
 
 	response = { "response" : yt_url}
 	return json.dumps(response, default=json_util.default)
