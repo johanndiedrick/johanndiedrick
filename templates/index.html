@@ -237,7 +237,7 @@
     <script>
 	    $.getJSON($SCRIPT_ROOT + "api/1/videos/random", function(data){
 		    	video_url = data.response;
-			$("#video").prepend("<video style='position: fixed; right: 0; bottom: 0;min-width: 100%; min-height: 100%;width: auto; height: auto; z-index: -100;' autoplay loop mute='true' src='" + video_url + "'>");
+			$("#video").prepend("<video muted style='position: fixed; right: 0; bottom: 0;min-width: 100%; min-height: 100%;width: auto; height: auto; z-index: -100;' autoplay loop mute='true' src='" + video_url + "'>");
 		});
     </script>
 
