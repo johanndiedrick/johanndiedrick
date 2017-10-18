@@ -181,7 +181,10 @@
 					collaborators += work[0].collaborators[i] + " and ";
 				}	
 			}
-			$("#workcontent").append("<p>with " + collaborators + "</p>");
+			if(work[0].collaborators.length > 0){
+				$("#workcontent").append("<p>with " + collaborators + "</p>");
+			}
+			
 			$("#workcontent").append("</p>")
 
 			//involvement
