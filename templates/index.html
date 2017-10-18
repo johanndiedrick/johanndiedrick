@@ -89,6 +89,9 @@
     <script>
 	    	$.getJSON($SCRIPT_ROOT + "api/1/works", function(data){
 			var works = data.response;
+			works.sort(function(a, b) {
+    				return b.rank - a.rank;
+			});
 			for (var i = 0; i<works.length; i++){
 				if(works[i].active == "true"){
 
