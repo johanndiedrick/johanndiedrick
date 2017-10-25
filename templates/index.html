@@ -96,7 +96,6 @@
 				if(works[i].active == "true"){
 
 				var category = works[i].category;
-				//console.log(category);
 				var emoji_category = "";
 				for (var j = 0; j<category.length; j++){
 					var emoji = ""
@@ -216,17 +215,21 @@
 			.append("<p><u>Exhibitions</u></p>");
 			var all_exhibitions = work[0].exhibitions;
 
-			for (var year in all_exhibitions){
-				$("#workcontent").append("<p>" + year + "</p>");
+			
+			all_exhibitions.sort(function(a, b) {
+    				return b.year - a.year;
+			});
 
-				var exhibitions = all_exhibitions[year];
-				for (var i=0; i<exhibitions.length; i++){
-					$("#workcontent").append("<p>" + exhibitions[i] + "</p>");
+			for( var i = 0; i<all_exhibitions.length; i++){
+			
+				$("#workcontent").append("<p>" + all_exhibitions[i].year + "</p>");
+				for (var j=0; j<all_exhibitions[i].entries.length; j++){
+					$("#workcontent").append("<p>" + all_exhibitions[i].entries[j] + "</p>");
 				}
+				
 			}
 
 			//press
-			console.log(work[0].press.length);
 			if (work[0].press.length > 0 ){
 			$("#workcontent").append("<p><u>Press</u></p>");
 				for( var i = 0; i<work[0].press.length; i++){
