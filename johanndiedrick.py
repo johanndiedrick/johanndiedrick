@@ -50,5 +50,5 @@ def get_random_video():
 	return json.dumps(response, default=json_util.default)
 
 if __name__ == "__main__":
-	app.debug = True
-	app.run()
+	app.debug = False
+	app.run(host='0.0.0.0')

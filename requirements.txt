@@ -4,3 +4,4 @@ requests
 youtube-dl
 simplejson
 dnspython
+uwsgi
